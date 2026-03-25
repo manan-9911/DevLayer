@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevLayer | Professional Text Utilities</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B0F19',
+                            panel: 'rgba(17, 24, 39, 0.65)',
+                            border: 'rgba(255, 255, 255, 0.08)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+        body {
+            background-color: #0B0F19;
+            background-image: 
+                radial-gradient(circle at 85% 15%, rgba(79, 70, 229, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 15% 85%, rgba(147, 51, 234, 0.15) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: #f3f4f6;
+        }
+
+        .glass-panel {
+            background: rgba(17, 24, 39, 0.65);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .textarea-glow:focus {
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
+            border-color: #6366f1;
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center selection:bg-indigo-500 selection:text-white">
+
+    <div class="w-full max-w-5xl flex flex-col gap-6">
+        
+        <header class="text-center py-6">
+            <h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
+                    DevLayer
+                </span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto italic">
+                Professional-grade formatting. Securely processed on your machine.
+            </p>
+        </header>
+
+        <main class="glass-panel rounded-2xl overflow-hidden flex flex-col md:flex-row border border-brand-border">
+            
+            <aside class="w-full md:w-72 bg-gray-900/50 p-6 border-b md:border-b-0 md:border-r border-brand-border flex flex-col gap-6">
+                <div>
+                    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Logic Tools</h2>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="formatJSON()" class="flex items-center gap-3 w-full px-4 py-3 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 border border-indigo-500/20 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            <i class="fas fa-code"></i> Prettify JSON
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Text Conversion</h2>
+                    <div class="flex flex-col gap-2">
+                        <button onclick="toUpperCase()" class="flex items-center gap-3 w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl transition-all">
+                            <i class="fas fa-font"></i> UPPERCASE
+                        </button>
+                        <button onclick="toLowerCase()" class="flex items-center gap-3 w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl transition-all">
+                            <i class="fas fa-italic"></i> lowercase
+                        </button>
+                    </div>
+                </div>
+
+                <div class="mt-auto pt-6 border-t border-brand-border">
+                    <button onclick="clearText()" class="flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl transition-all">
+                        <i class="fas fa-trash-alt"></i> Clear All
+                    </button>
+                </div>
+            </aside>
+
+            <section class="flex-1 flex flex-col">
+                <div class="relative flex-1 p-6">
+                    <textarea id="input" class="w-full h-80 md:h-[450px] bg-gray-950/50 rounded-xl p-5 text-sm md:text-base font-mono textarea-glow outline-none transition-all border border-brand-border text-gray-200 resize-none placeholder-gray-600" placeholder="Paste data here..."></textarea>
+                    
+                    <button onclick="copyToClipboard()" class="absolute top-10 right-10 bg-gray-800 hover:bg-indigo-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-2 border border-gray-700">
+                        <i class="far fa-copy"></i> Copy Result
+                    </button>
+                </div>
+
+                <div class="bg-gray-900/80 px-6 py-4 border-t border-brand-border flex flex-wrap items-center justify-between gap-4 text-sm">
+                    <div class="flex items-center gap-4">
+                        <div class="bg-white/5 px-3 py-1 rounded-md border border-white/5">
+                            <span class="text-gray-500 mr-2">Words:</span>
+                            <span id="wordCount" class="font-bold text-indigo-400 font-mono">0</span>
+                        </div>
+                        <div class="bg-white/5 px-3 py-1 rounded-md border border-white/5">
+                            <span class="text-gray-500 mr-2">Characters:</span>
+                            <span id="charCount" class="font-bold text-indigo-400 font-mono">0</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-md border border-emerald-400/20">
+                        <i class="fas fa-check-circle text-xs"></i>
+                        <span id="detectedType" class="font-semibold text-xs uppercase tracking-wider">Ready</span>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="mt-8 text-center flex flex-col items-center gap-4">
+            <div class="w-full max-w-3xl h-24 bg-gray-900/40 border border-dashed border-gray-700 rounded-xl flex items-center justify-center text-gray-500 text-sm">
+                <i class="fas fa-ad mr-2"></i> AdSense Placement Area
+            </div>
+            <p class="text-gray-500 text-xs mt-2 font-mono tracking-widest uppercase">&copy; 2026 DevLayer Utilities | Palam Sadh Nagar Deployment</p>
+        </footer>
+    </div>
+
+    <script>
+        const input = document.getElementById('input');
+        
+        function updateStats() {
+            const text = input.value.trim();
+            document.getElementById('wordCount').innerText = text ? text.split(/\s+/).length : 0;
+            document.getElementById('charCount').innerText = text.length;
+            if(!text) document.getElementById('detectedType').innerText = "Ready";
+        }
+
+        function formatJSON() {
+            if(!input.value.trim()) return;
+            try {
+                const obj = JSON.parse(input.value);
+                input.value = JSON.stringify(obj, null, 4);
+                document.getElementById('detectedType').innerText = "Valid JSON";
+                document.getElementById('detectedType').className = "font-semibold text-xs uppercase tracking-wider text-emerald-400";
+            } catch (e) {
+                document.getElementById('detectedType').innerText = "Invalid JSON";
+                document.getElementById('detectedType').className = "font-semibold text-xs uppercase tracking-wider text-red-400";
+                input.classList.add('animate-pulse');
+                setTimeout(() => input.classList.remove('animate-pulse'), 500);
+            }
+            updateStats();
+        }
+
+        function toUpperCase() { if(input.value) { input.value = input.value.toUpperCase(); updateStats(); document.getElementById('detectedType').innerText = "Case Modified"; } }
+        function toLowerCase() { if(input.value) { input.value = input.value.toLowerCase(); updateStats(); document.getElementById('detectedType').innerText = "Case Modified"; } }
+        function clearText() { input.value = ''; updateStats(); document.getElementById('detectedType').innerText = "Ready"; }
+        
+        function copyToClipboard() {
+            if(!input.value) return;
+            navigator.clipboard.writeText(input.value).then(() => {
+                const typeEl = document.getElementById('detectedType');
+                const oldText = typeEl.innerText;
+                typeEl.innerText = "Copied to Clipboard!";
+                setTimeout(() => typeEl.innerText = oldText, 2000);
+            });
+        }
+
+        input.addEventListener('input', updateStats);
+    </script>
+</body>
+</html>
