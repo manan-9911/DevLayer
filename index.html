@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevLayer | Professional Text Utilities</title>
+    
+    <meta name="description" content="DevLayer - Free, secure, and lightning-fast developer text utilities. Format JSON and convert text cases locally in your browser.">
+    <meta name="keywords" content="JSON formatter, text converter, uppercase to lowercase, developer tools, coding utilities, format JSON online">
+    <meta name="author" content="DevLayer">
+    <meta name="robots" content="index, follow">
+    
+    <title>DevLayer | Professional Developer Utilities</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -18,9 +25,10 @@
                     },
                     colors: {
                         brand: {
-                            dark: '#0B0F19',
-                            panel: 'rgba(17, 24, 39, 0.65)',
-                            border: 'rgba(255, 255, 255, 0.08)',
+                            bg: '#0f172a', /* Slate 900 */
+                            panel: '#1e293b', /* Slate 800 */
+                            border: '#334155', /* Slate 700 */
+                            accent: '#6366f1', /* Indigo 500 */
                         }
                     }
                 }
@@ -28,115 +36,124 @@
         }
     </script>
     <style>
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #4f46e5; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+        /* Custom Grey Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #64748b; border-radius: 5px; border: 2px solid #0f172a; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
         body {
-            background-color: #0B0F19;
-            background-image: 
-                radial-gradient(circle at 85% 15%, rgba(79, 70, 229, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 15% 85%, rgba(147, 51, 234, 0.15) 0%, transparent 40%);
+            background-color: #0f172a;
+            color: #f8fafc;
+            background-image: radial-gradient(circle at top right, rgba(99, 102, 241, 0.1), transparent 40%);
             background-attachment: fixed;
-            color: #f3f4f6;
         }
 
         .glass-panel {
-            background: rgba(17, 24, 39, 0.65);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
         }
 
-        .textarea-glow:focus {
+        .custom-textarea {
+            background-color: #0b1120;
+            transition: all 0.3s ease;
+        }
+        
+        .custom-textarea:focus {
             box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.4);
             border-color: #6366f1;
         }
     </style>
 </head>
-<body class="min-h-screen p-4 md:p-8 flex flex-col items-center selection:bg-indigo-500 selection:text-white">
+<body class="min-h-screen p-4 md:p-8 flex flex-col items-center selection:bg-indigo-500 selection:text-white font-sans antialiased">
 
-    <div class="w-full max-w-5xl flex flex-col gap-6">
+    <div class="w-full max-w-5xl flex flex-col gap-8">
         
-        <header class="text-center py-6">
-            <h1 class="text-4xl md:text-5xl font-bold mb-3 tracking-tight">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">
-                    DevLayer
-                </span>
+        <header class="text-center py-6 mt-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight text-white">
+                DevLayer<span class="text-indigo-500">.</span>
             </h1>
-            <p class="text-gray-400 text-sm md:text-base max-w-xl mx-auto italic">
-                Professional-grade formatting. Securely processed on your machine.
+            <p class="text-slate-400 text-sm md:text-base max-w-2xl mx-auto font-medium leading-relaxed">
+                Enterprise-grade data formatting. Processed securely on your local machine.
             </p>
         </header>
 
         <main class="glass-panel rounded-2xl overflow-hidden flex flex-col md:flex-row border border-brand-border">
             
-            <aside class="w-full md:w-72 bg-gray-900/50 p-6 border-b md:border-b-0 md:border-r border-brand-border flex flex-col gap-6">
+            <aside class="w-full md:w-72 bg-slate-800/50 p-6 border-b md:border-b-0 md:border-r border-brand-border flex flex-col gap-8">
+                
                 <div>
-                    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Logic Tools</h2>
-                    <div class="flex flex-col gap-2">
-                        <button onclick="formatJSON()" class="flex items-center gap-3 w-full px-4 py-3 bg-indigo-600/10 hover:bg-indigo-600/20 text-indigo-300 border border-indigo-500/20 rounded-xl transition-all hover:scale-[1.02] active:scale-[0.98]">
-                            <i class="fas fa-code"></i> Prettify JSON
-                        </button>
-                    </div>
+                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Development Tools</h2>
+                    <button onclick="formatJSON()" class="group flex items-center justify-center gap-3 w-full px-5 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-500/20 transition-all duration-300 transform hover:-translate-y-1 active:scale-95">
+                        <i class="fas fa-code transition-transform duration-300 group-hover:rotate-12"></i> Prettify JSON
+                    </button>
                 </div>
 
                 <div>
-                    <h2 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Text Conversion</h2>
-                    <div class="flex flex-col gap-2">
-                        <button onclick="toUpperCase()" class="flex items-center gap-3 w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl transition-all">
-                            <i class="fas fa-font"></i> UPPERCASE
+                    <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Text Processing</h2>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="toUpperCase()" class="group flex items-center gap-3 w-full px-4 py-3 bg-slate-700/50 hover:bg-slate-700 text-slate-200 font-medium border border-slate-600/50 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">
+                            <i class="fas fa-font text-slate-400 group-hover:text-white transition-colors"></i> UPPERCASE
                         </button>
-                        <button onclick="toLowerCase()" class="flex items-center gap-3 w-full px-4 py-3 bg-white/5 hover:bg-white/10 border border-transparent hover:border-white/10 rounded-xl transition-all">
-                            <i class="fas fa-italic"></i> lowercase
+                        <button onclick="toLowerCase()" class="group flex items-center gap-3 w-full px-4 py-3 bg-slate-700/50 hover:bg-slate-700 text-slate-200 font-medium border border-slate-600/50 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5 active:scale-95">
+                            <i class="fas fa-italic text-slate-400 group-hover:text-white transition-colors"></i> lowercase
                         </button>
                     </div>
                 </div>
 
                 <div class="mt-auto pt-6 border-t border-brand-border">
-                    <button onclick="clearText()" class="flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl transition-all">
-                        <i class="fas fa-trash-alt"></i> Clear All
+                    <button onclick="clearText()" class="group flex items-center justify-center gap-2 w-full px-4 py-3 bg-red-500/10 hover:bg-red-500 text-red-400 hover:text-white font-medium rounded-xl transition-all duration-300 active:scale-95">
+                        <i class="fas fa-trash-alt transition-transform duration-300 group-hover:scale-110"></i> Clear Workspace
                     </button>
                 </div>
             </aside>
 
-            <section class="flex-1 flex flex-col">
-                <div class="relative flex-1 p-6">
-                    <textarea id="input" class="w-full h-80 md:h-[450px] bg-gray-950/50 rounded-xl p-5 text-sm md:text-base font-mono textarea-glow outline-none transition-all border border-brand-border text-gray-200 resize-none placeholder-gray-600" placeholder="Paste data here..."></textarea>
+            <section class="flex-1 flex flex-col relative">
+                <div class="flex-1 p-6 relative">
+                    <textarea id="input" class="custom-textarea w-full h-80 md:h-[450px] rounded-xl p-6 text-sm md:text-base font-mono outline-none border border-slate-700 text-slate-300 resize-none placeholder-slate-600 leading-relaxed" placeholder="Paste your raw JSON or text data here..."></textarea>
                     
-                    <button onclick="copyToClipboard()" class="absolute top-10 right-10 bg-gray-800 hover:bg-indigo-600 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors flex items-center gap-2 border border-gray-700">
-                        <i class="far fa-copy"></i> Copy Result
+                    <button onclick="copyToClipboard()" class="absolute top-10 right-10 bg-slate-800 hover:bg-indigo-500 text-slate-300 hover:text-white px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-all duration-300 shadow-md transform hover:-translate-y-0.5 active:scale-95 flex items-center gap-2 border border-slate-600 hover:border-indigo-400">
+                        <i class="far fa-copy"></i> Copy Output
                     </button>
                 </div>
 
-                <div class="bg-gray-900/80 px-6 py-4 border-t border-brand-border flex flex-wrap items-center justify-between gap-4 text-sm">
-                    <div class="flex items-center gap-4">
-                        <div class="bg-white/5 px-3 py-1 rounded-md border border-white/5">
-                            <span class="text-gray-500 mr-2">Words:</span>
-                            <span id="wordCount" class="font-bold text-indigo-400 font-mono">0</span>
+                <div class="bg-slate-900/80 px-6 py-4 border-t border-brand-border flex flex-wrap items-center justify-between gap-4">
+                    <div class="flex items-center gap-6 text-sm">
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-500 font-medium">Words</span>
+                            <span id="wordCount" class="font-bold text-white font-mono bg-slate-800 px-2 py-0.5 rounded">0</span>
                         </div>
-                        <div class="bg-white/5 px-3 py-1 rounded-md border border-white/5">
-                            <span class="text-gray-500 mr-2">Characters:</span>
-                            <span id="charCount" class="font-bold text-indigo-400 font-mono">0</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-slate-500 font-medium">Characters</span>
+                            <span id="charCount" class="font-bold text-white font-mono bg-slate-800 px-2 py-0.5 rounded">0</span>
                         </div>
                     </div>
-                    <div class="flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-3 py-1 rounded-md border border-emerald-400/20">
+                    <div class="flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg border border-emerald-400/20 shadow-inner">
                         <i class="fas fa-check-circle text-xs"></i>
-                        <span id="detectedType" class="font-semibold text-xs uppercase tracking-wider">Ready</span>
+                        <span id="detectedType" class="font-bold text-xs uppercase tracking-wider">System Ready</span>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="mt-8 text-center flex flex-col items-center gap-4">
-            <div class="w-full max-w-3xl h-24 bg-gray-900/40 border border-dashed border-gray-700 rounded-xl flex items-center justify-center text-gray-500 text-sm">
-                <i class="fas fa-ad mr-2"></i> AdSense Placement Area
+        <footer class="mt-6 text-center flex flex-col items-center gap-6 w-full">
+            <div class="w-full max-w-3xl h-[90px] bg-slate-800/50 border border-slate-700 rounded-lg flex flex-col items-center justify-center text-slate-500 transition-all hover:bg-slate-800 overflow-hidden relative group">
+                <span class="text-xs font-semibold uppercase tracking-widest mb-1 z-10"><i class="fas fa-bullhorn mr-2"></i>Advertisement Space</span>
+                <span class="text-[10px] text-slate-600 z-10">Google AdSense Placement (728x90)</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-slate-700/10 to-transparent -translate-x-full group-hover:animate-[shimmer_2s_infinite]"></div>
             </div>
-            <p class="text-gray-500 text-xs mt-2 font-mono tracking-widest uppercase">&copy; 2026 DevLayer Utilities | Palam Sadh Nagar Deployment</p>
+            
+            <p class="text-slate-500 text-xs font-mono tracking-widest uppercase opacity-70">&copy; 2026 DevLayer Utilities</p>
         </footer>
     </div>
+
+    <style>
+        @keyframes shimmer {
+            100% { transform: translateX(100%); }
+        }
+    </style>
 
     <script>
         const input = document.getElementById('input');
@@ -145,7 +162,10 @@
             const text = input.value.trim();
             document.getElementById('wordCount').innerText = text ? text.split(/\s+/).length : 0;
             document.getElementById('charCount').innerText = text.length;
-            if(!text) document.getElementById('detectedType').innerText = "Ready";
+            if(!text) {
+                document.getElementById('detectedType').innerText = "System Ready";
+                document.getElementById('detectedType').parentElement.className = "flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg border border-emerald-400/20 shadow-inner";
+            }
         }
 
         function formatJSON() {
@@ -153,20 +173,24 @@
             try {
                 const obj = JSON.parse(input.value);
                 input.value = JSON.stringify(obj, null, 4);
+                
+                const statusBadge = document.getElementById('detectedType').parentElement;
                 document.getElementById('detectedType').innerText = "Valid JSON";
-                document.getElementById('detectedType').className = "font-semibold text-xs uppercase tracking-wider text-emerald-400";
+                statusBadge.className = "flex items-center gap-2 text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg border border-emerald-400/20 shadow-inner";
             } catch (e) {
+                const statusBadge = document.getElementById('detectedType').parentElement;
                 document.getElementById('detectedType').innerText = "Invalid JSON";
-                document.getElementById('detectedType').className = "font-semibold text-xs uppercase tracking-wider text-red-400";
-                input.classList.add('animate-pulse');
-                setTimeout(() => input.classList.remove('animate-pulse'), 500);
+                statusBadge.className = "flex items-center gap-2 text-red-400 bg-red-400/10 px-3 py-1.5 rounded-lg border border-red-400/20 shadow-inner";
+                
+                input.classList.add('border-red-500');
+                setTimeout(() => input.classList.remove('border-red-500'), 500);
             }
             updateStats();
         }
 
         function toUpperCase() { if(input.value) { input.value = input.value.toUpperCase(); updateStats(); document.getElementById('detectedType').innerText = "Case Modified"; } }
         function toLowerCase() { if(input.value) { input.value = input.value.toLowerCase(); updateStats(); document.getElementById('detectedType').innerText = "Case Modified"; } }
-        function clearText() { input.value = ''; updateStats(); document.getElementById('detectedType').innerText = "Ready"; }
+        function clearText() { input.value = ''; updateStats(); }
         
         function copyToClipboard() {
             if(!input.value) return;
